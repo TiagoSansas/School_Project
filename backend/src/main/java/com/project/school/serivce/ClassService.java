@@ -1,5 +1,7 @@
 package com.project.school.serivce;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.project.school.dto.ClassDTO;
 import com.project.school.entites.Class;
 import com.project.school.repositories.ClassRepository;
+import com.project.school.serivce.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClassService {
@@ -20,6 +23,13 @@ public class ClassService {
 	public Page<ClassDTO> findAllPaged(PageRequest pageRequest){
 		Page<Class> list = repository.findAll(pageRequest);
 		return list.map(x->new ClassDTO(x));
+	}
+	
+	@Transactional(readOnly = true)
+	public ClassDTO findById(Long id) {
+		Optional<Class> obj = repository.findById(id);
+		Class entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not Found"));
+		return new ClassDTO(entity);
 	}
 	
 
