@@ -13,33 +13,49 @@ import com.project.school.entites.Class;
 import com.project.school.repositories.ClassRepository;
 import com.project.school.serivce.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ClassService {
-	
+
 	@Autowired
 	private ClassRepository repository;
-	
+
 	@Transactional(readOnly = true)
-	public Page<ClassDTO> findAllPaged(PageRequest pageRequest){
+	public Page<ClassDTO> findAllPaged(PageRequest pageRequest) {
 		Page<Class> list = repository.findAll(pageRequest);
-		return list.map(x->new ClassDTO(x));
+		return list.map(x -> new ClassDTO(x));
 	}
-	
+
 	@Transactional(readOnly = true)
 	public ClassDTO findById(Long id) {
 		Optional<Class> obj = repository.findById(id);
-		Class entity = obj.orElseThrow(()-> new ResourceNotFoundException("Entity not Found"));
+		Class entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not Found"));
 		return new ClassDTO(entity);
 	}
-	
+
 	@Transactional
 	public ClassDTO insert(ClassDTO dto) {
 		Class entity = new Class();
-		copyDtoToEntity(dto,entity);
+		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new ClassDTO(entity);
 	}
-	
+
+	@Transactional
+	public ClassDTO update(Long id ,ClassDTO dto) {
+		try {
+			Class entity = repository.getReferenceById(id);
+			copyDtoToEntity(dto, entity);
+			entity = repository.save(entity);
+			return new ClassDTO(entity);
+			
+		}catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Entity not Found" + id);
+		}
+		
+	}
+
 	private void copyDtoToEntity(ClassDTO dto, Class entity) {
 		entity.setName(dto.getName());
 		entity.setSeries(dto.getSeries());
