@@ -3,15 +3,14 @@ package com.project.school.entites;
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
+
 public class Person implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

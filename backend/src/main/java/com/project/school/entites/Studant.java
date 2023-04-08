@@ -9,15 +9,18 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_studant")
+@Table(name = "tb_stutant")
 public class Studant extends Person {
 
 	private static final long serialVersionUID = 1L;
-	@Column(name="registration")
+	
+	
 	private Long registration;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant date;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	
 	@JoinColumn(name = "team_id",referencedColumnName="id")
 
 	private Team team;
