@@ -9,47 +9,47 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.school.dto.ClassDTO;
-import com.project.school.entites.Class;
-import com.project.school.repositories.ClassRepository;
+import com.project.school.dto.TeamDTO;
+import com.project.school.entites.Team;
+import com.project.school.repositories.TeamRepository;
 import com.project.school.serivce.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class ClassService {
+public class TeamService {
 
 	@Autowired
-	private ClassRepository repository;
+	private TeamRepository repository;
 
 	@Transactional(readOnly = true)
-	public Page<ClassDTO> findAllPaged(PageRequest pageRequest) {
-		Page<Class> list = repository.findAll(pageRequest);
-		return list.map(x -> new ClassDTO(x));
+	public Page<TeamDTO> findAllPaged(PageRequest pageRequest) {
+		Page<Team> list = repository.findAll(pageRequest);
+		return list.map(x -> new TeamDTO(x));
 	}
 
 	@Transactional(readOnly = true)
-	public ClassDTO findById(Long id) {
-		Optional<Class> obj = repository.findById(id);
-		Class entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not Found"));
-		return new ClassDTO(entity);
+	public TeamDTO findById(Long id) {
+		Optional<Team> obj = repository.findById(id);
+		Team entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not Found"));
+		return new TeamDTO(entity);
 	}
 
 	@Transactional
-	public ClassDTO insert(ClassDTO dto) {
-		Class entity = new Class();
+	public TeamDTO insert(TeamDTO dto) {
+		Team entity = new Team();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
-		return new ClassDTO(entity);
+		return new TeamDTO(entity);
 	}
 
 	@Transactional
-	public ClassDTO update(Long id ,ClassDTO dto) {
+	public TeamDTO update(Long id ,TeamDTO dto) {
 		try {
-			Class entity = repository.getReferenceById(id);
+			Team entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
-			return new ClassDTO(entity);
+			return new TeamDTO(entity);
 			
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found" + id);
@@ -65,7 +65,7 @@ public class ClassService {
 		}
 	}
 
-	private void copyDtoToEntity(ClassDTO dto, Class entity) {
+	private void copyDtoToEntity(TeamDTO dto, Team entity) {
 		entity.setName(dto.getName());
 		entity.setSeries(dto.getSeries());
 	}

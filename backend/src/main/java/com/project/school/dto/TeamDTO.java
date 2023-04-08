@@ -2,9 +2,9 @@ package com.project.school.dto;
 
 import java.io.Serializable;
 
-import com.project.school.entites.Class;
+import com.project.school.entites.Team;
 
-public class ClassDTO implements Serializable {
+public class TeamDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
@@ -12,16 +12,16 @@ public class ClassDTO implements Serializable {
 	private String name;
 	private Integer series;
 
-	public ClassDTO() {
+	public TeamDTO() {
 	}
 
-	public ClassDTO(Long id, String name, Integer series) {
+	public TeamDTO(Long id, String name, Integer series) {
 		this.id = id;
 		this.name = name;
 		this.series = series;
 	}
 	
-	public ClassDTO(Class entity) {
+	public TeamDTO(Team entity) {
 		this.id = entity.getId();
 		this.name = entity.getName();
 		this.series = entity.getSeries();

@@ -18,48 +18,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.project.school.dto.ClassDTO;
-import com.project.school.serivce.ClassService;
+import com.project.school.dto.TeamDTO;
+import com.project.school.serivce.TeamService;
 
 @RestController
 @RequestMapping(value = "/class")
-public class ClassResources {
+public class TeamResources {
 
 	@Autowired
-	private ClassService service;
+	private TeamService service;
 
 	@GetMapping
-	public ResponseEntity<Page<ClassDTO>> findAllPaged(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public ResponseEntity<Page<TeamDTO>> findAllPaged(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
 			@RequestParam(value = "orderBy", defaultValue = "name") String orderBy) {
 
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		Page<ClassDTO> list = service.findAllPaged(pageRequest);
+		Page<TeamDTO> list = service.findAllPaged(pageRequest);
 		return ResponseEntity.ok().body(list);
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ClassDTO> findById(@PathVariable Long id) {
-		ClassDTO dto = service.findById(id);
+	public ResponseEntity<TeamDTO> findById(@PathVariable Long id) {
+		TeamDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
 
 	@PostMapping
-	public ResponseEntity<ClassDTO> insert(@RequestBody ClassDTO dto) {
+	public ResponseEntity<TeamDTO> insert(@RequestBody TeamDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<ClassDTO> update(@PathVariable Long id, @RequestBody ClassDTO dto){
+	public ResponseEntity<TeamDTO> update(@PathVariable Long id, @RequestBody TeamDTO dto){
 		dto= service.update(id, dto);
 		return ResponseEntity.ok().body(dto);			
 	}
 
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<ClassDTO> delete(@PathVariable Long id){
+	public ResponseEntity<TeamDTO> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 		

@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_class")
-public class Class implements Serializable {
+public class Team implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,10 +21,10 @@ public class Class implements Serializable {
 	private String name;
 	private Integer series;
 
-	public Class() {
+	public Team() {
 	}
 
-	public Class(Long id ,String name, Integer series) {
+	public Team(Long id ,String name, Integer series) {
 		this.id = id;
 		this.name = name;
 		this.series = series;
@@ -67,7 +67,7 @@ public class Class implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Class other = (Class) obj;
+		Team other = (Team) obj;
 		return Objects.equals(id, other.id);
 	}
 
