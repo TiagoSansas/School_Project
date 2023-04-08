@@ -32,5 +32,17 @@ public class ClassService {
 		return new ClassDTO(entity);
 	}
 	
+	@Transactional
+	public ClassDTO insert(ClassDTO dto) {
+		Class entity = new Class();
+		copyDtoToEntity(dto,entity);
+		entity = repository.save(entity);
+		return new ClassDTO(entity);
+	}
+	
+	private void copyDtoToEntity(ClassDTO dto, Class entity) {
+		entity.setName(dto.getName());
+		entity.setSeries(dto.getSeries());
+	}
 
 }
