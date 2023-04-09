@@ -2,8 +2,6 @@ package com.project.school.dto;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.school.entites.Person;
 import com.project.school.entites.Studant;
 import com.project.school.entites.Team;
