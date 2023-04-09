@@ -2,6 +2,8 @@ package com.project.school.dto;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.school.entites.Person;
 import com.project.school.entites.Studant;
 import com.project.school.entites.Team;
@@ -12,6 +14,7 @@ public class StudantDTO extends Person {
 
 	private Long registration;
 	private Instant date;
+	private Team team;
 
 
 
@@ -19,10 +22,12 @@ public class StudantDTO extends Person {
 	}
 
 	public StudantDTO(Long id, String name, String andress, Integer numberAndress, Integer numberPhone,
-			Long registration, Instant date) {
+			Long registration, Instant date,Team team ) {
 		super(id, name, andress, numberAndress, numberPhone);
 		this.registration = registration;
 		this.date = date;
+		this.team = team;
+	
 	}
 	public StudantDTO(Studant entity) {
 		
@@ -31,13 +36,40 @@ public class StudantDTO extends Person {
 		this.setAndress(entity.getAndress());
 		this.setNumberAndress(entity.getNumberAndress());
 		this.setNumberPhone(entity.getNumberPhone());
-		this.registration =entity.getRegistration();
+		this.registration = entity.getRegistration();
 		this.date = entity.getDate();
+		
 	}
-	public StudantDTO(Studant entity, Team team) {
-		this(entity);
-		team.getId();
+
+
+
+	public Long getRegistration() {
+		return registration;
 	}
+
+	public void setRegistration(Long registration) {
+		this.registration = registration;
+	}
+
+	public Instant getDate() {
+		return date;
+	}
+
+	public void setDate(Instant date) {
+		this.date = date;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
+
+
 	
 	
+
 }
