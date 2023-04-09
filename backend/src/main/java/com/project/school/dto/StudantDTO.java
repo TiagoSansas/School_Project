@@ -6,9 +6,13 @@ import com.project.school.entites.Person;
 import com.project.school.entites.Studant;
 import com.project.school.entites.Team;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
 public class StudantDTO extends Person {
 
 	private static final long serialVersionUID = 1L;
+
 
 	private Long registration;
 	private Instant date;
@@ -20,9 +24,9 @@ public class StudantDTO extends Person {
 	}
 
 	public StudantDTO(Long id, String name, String andress, Integer numberAndress, Integer numberPhone,
-			Long registration, Instant date,Team team ) {
+			 Instant date,Team team ) {
 		super(id, name, andress, numberAndress, numberPhone);
-		this.registration = registration;
+		this.registration = id;
 		this.date = date;
 		this.team = team;
 	
@@ -34,7 +38,7 @@ public class StudantDTO extends Person {
 		this.setAndress(entity.getAndress());
 		this.setNumberAndress(entity.getNumberAndress());
 		this.setNumberPhone(entity.getNumberPhone());
-		this.registration = entity.getRegistration();
+		this.registration = entity.getId();
 		this.date = entity.getDate();
 		
 	}

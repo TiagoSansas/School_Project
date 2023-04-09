@@ -34,9 +34,9 @@ public class Studant extends Person {
 	}
 
 	public Studant(Long id, String name, String andress, Integer numberAndress, Integer numberPhone,
-			Instant date,Team team) {
+			Long registration, Instant date,Team team) {
 		super(id, name, andress, numberAndress, numberPhone);
-		this.registration = id;
+		this.registration = registration;
 		this.date = date;
 		this.team = team;
 
